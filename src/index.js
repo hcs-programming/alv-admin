@@ -4,12 +4,22 @@ import "./index.css"
 import { Container, Accordion, Icon, Segment } from "semantic-ui-react"
 
 class App extends React.Component {
-  state = { activeIndex: 1 }
+  state = { activeIndex: 0, grades: [] }
+
+  componentDidMount() {
+    fetch(`http://app.apache.ga/api/today`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ grades: data })
+      })
+  }
+
   changeActiveIndex = index => {
     this.setState({ activeIndex: index })
   }
+
   render() {
-    const { activeIndex } = this.state
+    const { activeIndex, grades } = this.state
     return (
       <Container className="App">
         <Accordion styled fluid>
@@ -21,9 +31,22 @@ class App extends React.Component {
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
             <Segment.Group>
-              <Segment>muss brown</Segment>
-              <Segment>nathan</Segment>
-              <Segment>niwe</Segment>
+              {grades.map((grade, i) => (
+                <Segment key={i}>
+                  {grade.name}
+                  {grade.people === null
+                    ? " - Incomplete"
+                    : grade.people.map((person, j) => {
+                        if (person.attendance === null) return ""
+                        else
+                          return (
+                            <p key={j}>
+                              {person.name} - {person.attendance}
+                            </p>
+                          )
+                      })}
+                </Segment>
+              ))}
             </Segment.Group>
           </Accordion.Content>
           <Accordion.Title
@@ -33,7 +56,19 @@ class App extends React.Component {
             <Icon name="dropdown" />Lunch
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
-            , Kobe Bryant
+            <Segment.Group>
+              {grades.map((grade, i) => (
+                <Segment key={i}>
+                  {grade.name}
+                  {grade.people === null
+                    ? " - Incomplete"
+                    : grade.people.map((person, j) => {
+                        if (person.lunch === null) return ""
+                        else return <p key={j}>{person.name}</p>
+                      })}
+                </Segment>
+              ))}
+            </Segment.Group>
           </Accordion.Content>
           <Accordion.Title
             active={activeIndex === 2}
@@ -42,7 +77,25 @@ class App extends React.Component {
             <Icon name="dropdown" />Violations
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
-            , Kobe Bryant
+            <Segment.Group>
+              {grades.map((grade, i) => (
+                <Segment key={i}>
+                  {grade.name}
+                  {grade.people === null
+                    ? " - Incomplete"
+                    : grade.people.map((person, j) => {
+                        if (
+                          person.beard === null &&
+                          person.belt === null &&
+                          person.shoes === null &&
+                          person.uniform === null
+                        )
+                          return ""
+                        else return <p key={j}>{person.name}</p>
+                      })}
+                </Segment>
+              ))}
+            </Segment.Group>
           </Accordion.Content>
         </Accordion>
       </Container>
