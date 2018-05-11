@@ -50,7 +50,8 @@ class App extends React.Component {
                           else
                             return (
                               <p key={j}>
-                                {person.name} - {person.attendance}
+                                {person.name}
+                                {person.attendance === "A" ? "" : " - tardy"}
                               </p>
                             )
                         })
