@@ -3,6 +3,11 @@ import ReactDOM from "react-dom"
 import "./index.css"
 import { Container, Accordion, Header, Icon, Segment } from "semantic-ui-react"
 
+import beard from "./assets/beard.png"
+import belt from "./assets/belt.png"
+import shoe from "./assets/shoe.png"
+import shirt from "./assets/shirt.png"
+
 class App extends React.Component {
   state = { activeIndex: 0, grades: [] }
 
