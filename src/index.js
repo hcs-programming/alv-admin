@@ -1,7 +1,7 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import "./index.css"
-import { Container, Accordion, Icon, Segment } from "semantic-ui-react"
+import { Container, Accordion, Header, Icon, Segment } from "semantic-ui-react"
 
 class App extends React.Component {
   state = { activeIndex: 0, grades: [] }
@@ -31,22 +31,29 @@ class App extends React.Component {
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
             <Segment.Group>
-              {grades.map((grade, i) => (
-                <Segment key={i}>
-                  {grade.name}
-                  {grade.people === null
-                    ? " - Incomplete"
-                    : grade.people.map((person, j) => {
-                        if (person.attendance === null) return ""
-                        else
-                          return (
-                            <p key={j}>
-                              {person.name} - {person.attendance}
-                            </p>
-                          )
-                      })}
-                </Segment>
-              ))}
+              {grades.map(
+                (grade, i) =>
+                  grade.people === null ? (
+                    ""
+                  ) : (
+                    <div key={i}>
+                      <Header as="h2" attached="top">
+                        {grade.name}
+                      </Header>
+                      <Segment attached>
+                        {grade.people.map((person, j) => {
+                          if (person.attendance === null) return ""
+                          else
+                            return (
+                              <p key={j}>
+                                {person.name} - {person.attendance}
+                              </p>
+                            )
+                        })}
+                      </Segment>
+                    </div>
+                  )
+              )}
             </Segment.Group>
           </Accordion.Content>
           <Accordion.Title
@@ -57,17 +64,24 @@ class App extends React.Component {
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 1}>
             <Segment.Group>
-              {grades.map((grade, i) => (
-                <Segment key={i}>
-                  {grade.name}
-                  {grade.people === null
-                    ? " - Incomplete"
-                    : grade.people.map((person, j) => {
-                        if (person.lunch === null) return ""
-                        else return <p key={j}>{person.name}</p>
-                      })}
-                </Segment>
-              ))}
+              {grades.map(
+                (grade, i) =>
+                  grade.people === null ? (
+                    ""
+                  ) : (
+                    <div key={i}>
+                      <Header as="h2" attached="top">
+                        {grade.name}
+                      </Header>
+                      <Segment attached>
+                        {grade.people.map((person, j) => {
+                          if (person.lunch === null) return ""
+                          else return <p key={j}>{person.name}</p>
+                        })}
+                      </Segment>
+                    </div>
+                  )
+              )}
             </Segment.Group>
           </Accordion.Content>
           <Accordion.Title
@@ -78,23 +92,30 @@ class App extends React.Component {
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 2}>
             <Segment.Group>
-              {grades.map((grade, i) => (
-                <Segment key={i}>
-                  {grade.name}
-                  {grade.people === null
-                    ? " - Incomplete"
-                    : grade.people.map((person, j) => {
-                        if (
-                          person.beard === null &&
-                          person.belt === null &&
-                          person.shoes === null &&
-                          person.uniform === null
-                        )
-                          return ""
-                        else return <p key={j}>{person.name}</p>
-                      })}
-                </Segment>
-              ))}
+              {grades.map(
+                (grade, i) =>
+                  grade.people === null ? (
+                    ""
+                  ) : (
+                    <div key={i}>
+                      <Header as="h2" attached="top">
+                        {grade.name}
+                      </Header>
+                      <Segment attached>
+                        {grade.people.map((person, j) => {
+                          if (
+                            person.beard === null &&
+                            person.belt === null &&
+                            person.shoes === null &&
+                            person.uniform === null
+                          )
+                            return ""
+                          else return <p key={j}>{person.name}</p>
+                        })}
+                      </Segment>
+                    </div>
+                  )
+              )}
             </Segment.Group>
           </Accordion.Content>
         </Accordion>
