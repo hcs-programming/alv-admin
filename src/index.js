@@ -36,29 +36,35 @@ class App extends React.Component {
           </Accordion.Title>
           <Accordion.Content active={activeIndex === 0}>
             <Segment.Group>
-              {grades.map(
-                (grade, i) =>
-                  grade.people === null ? (
-                    ""
-                  ) : (
-                    <div key={i}>
-                      <Header as="h2" attached="top">
-                        {grade.name}
-                      </Header>
-                      <Segment attached>
-                        {grade.people.map((person, j) => {
+              {grades.map((grade, i) => {
+                if (grade.people === null) return ""
+                const perfectAttendance = grade.people.every(
+                  p => p.attendance === null
+                )
+                return (
+                  <div key={i}>
+                    <Header as="h2" attached="top">
+                      {grade.name}
+                    </Header>
+                    <Segment attached>
+                      {perfectAttendance ? (
+                        <p>100%</p>
+                      ) : (
+                        grade.people.map((person, j) => {
                           if (person.attendance === null) return ""
                           else
                             return (
                               <p key={j}>
-                                {person.name} - {person.attendance}
+                                {person.name}
+                                {person.attendance === "A" ? "" : " - tardy"}
                               </p>
                             )
-                        })}
-                      </Segment>
-                    </div>
-                  )
-              )}
+                        })
+                      )}
+                    </Segment>
+                  </div>
+                )
+              })}
             </Segment.Group>
           </Accordion.Content>
           <Accordion.Title
